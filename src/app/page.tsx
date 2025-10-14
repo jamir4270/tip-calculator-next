@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import logo from "../../frontend_mentor_resources/images/logo.svg";
 import dollar from "../../frontend_mentor_resources/images/icon-dollar.svg";
 import person from "../../frontend_mentor_resources/images/icon-person.svg";
+import BillInput from "@/components/BillInput";
 import TipCalculator from "@/utils/TipCalculator";
 import { useState, useEffect } from "react";
 
@@ -44,34 +46,15 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-start bg-[hsl(185,41%,84%)] px-4 pt-12 font-mono md:justify-center md:px-0 md:pt-0">
-      <h1 className="text-center text-2xl tracking-[0.5em] text-[hsl(183,100%,15%)]">
-        SPLI
-        <br />
-        TTER
-      </h1>
+      <Image
+        className="tracking-[0.5em]"
+        src={logo}
+        alt="splitter logo"
+      ></Image>
 
       <div className="mt-10 grid w-full max-w-4xl grid-cols-1 gap-8 rounded-2xl bg-white p-6 shadow-lg md:mt-20 md:grid-cols-2 md:p-8">
         <div className="flex flex-col justify-between gap-8">
-          <div>
-            <label htmlFor="bill" className="text-md text-[hsl(186,14%,43%)]">
-              Bill
-            </label>
-            <div className="relative mt-2">
-              <Image
-                className="absolute left-4 top-1/2 -translate-y-1/2"
-                src={dollar}
-                alt="dollar icon"
-              />
-              <input
-                className="w-full rounded-md border-2 border-transparent bg-[hsl(189,41%,97%)] px-4 py-2 text-right text-2xl font-bold text-[hsl(183,100%,15%)] placeholder:text-[hsl(183,100%,15%)]/40 focus:outline-none focus:ring-2 focus:ring-[hsl(172,67%,45%)]"
-                type="number"
-                id="bill"
-                placeholder="0"
-                value={bill}
-                onChange={(e) => setBill(e.target.value)}
-              />
-            </div>
-          </div>
+          <BillInput bill={bill} handleBillInput={setBill} />
           <div>
             <label className="text-md text-[hsl(186,14%,43%)]">
               Select Tip %

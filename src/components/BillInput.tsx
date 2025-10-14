@@ -1,32 +1,31 @@
 
 import Image from "next/image";
-import dollarSign from "../../frontend_mentor_resources/images/icon-dollar.svg";
+import dollar from "../../frontend_mentor_resources/images/icon-dollar.svg";
 
 type BillProps = {
-  handleBillInput: (bill: number) => void;
+  bill: string;
+  handleBillInput: (bill: string) => void;
 };
 
-export default function BillInput({ handleBillInput }: BillProps) {
-  function verifyInput(value: string) {
-    const newValue = value;
-    const regex = /^\d+(\.\d{1,2})?$/;
-    if (regex.test(newValue)) {
-      handleBillInput(parseFloat(newValue));
-    }
-  }
+export default function BillInput({ bill, handleBillInput }: BillProps) {
   return (
     <div>
-      <label htmlFor="billInput">Bill</label>
-      <div>
-        <Image src={dollarSign} alt="dollar sign"></Image>
+      <label htmlFor="bill" className="text-md text-[hsl(186,14%,43%)]">
+        Bill
+      </label>
+      <div className="relative mt-2">
+        <Image
+          className="absolute left-4 top-1/2 -translate-y-1/2"
+          src={dollar}
+          alt="dollar icon"
+        />
         <input
-          type="text"
-          name="billInput"
-          id="billInput"
+          className="w-full rounded-md border-2 border-transparent bg-[hsl(189,41%,97%)] px-4 py-2 text-right text-2xl font-bold text-[hsl(183,100%,15%)] placeholder:text-[hsl(183,100%,15%)]/40 focus:outline-none focus:ring-2 focus:ring-[hsl(172,67%,45%)]"
+          type="number"
+          id="bill"
           placeholder="0"
-          onChange={(event) => {
-            verifyInput(event.target.value);
-          }}
+          value={bill}
+          onChange={(e) => handleBillInput(e.target.value)}
         />
       </div>
     </div>
