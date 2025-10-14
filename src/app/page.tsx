@@ -6,6 +6,7 @@ import BillInput from "@/components/BillInput";
 import TipInput from "@/components/TipInput";
 import PeopleCountInput from "@/components/PeopleCountInput";
 import DisplayResult from "@/components/DisplayResults";
+import ResetButton from "@/components/ResetButton";
 import TipCalculator from "@/utils/TipCalculator";
 import { useState, useEffect } from "react";
 
@@ -80,14 +81,7 @@ export default function Home() {
             tipPerPerson={tipPerPerson}
             totalPerPerson={totalPerPerson}
           />
-
-          <button
-            className="mt-8 w-full rounded-md bg-[hsl(172,67%,45%)] p-3 text-xl font-bold uppercase text-[hsl(183,100%,15%)] transition-colors hover:bg-[hsl(173,61%,77%)] disabled:bg-[hsl(184,87%,21%)] disabled:text-[hsl(183,100%,15%)]/50 md:mt-0"
-            onClick={resetFields}
-            disabled={!canReset}
-          >
-            Reset
-          </button>
+          <ResetButton canReset={canReset} handleReset={resetFields} />
         </div>
       </div>
     </main>
