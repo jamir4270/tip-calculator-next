@@ -5,6 +5,7 @@ import logo from "../../frontend_mentor_resources/images/logo.svg";
 import person from "../../frontend_mentor_resources/images/icon-person.svg";
 import BillInput from "@/components/BillInput";
 import TipInput from "@/components/TipInput";
+import PeopleCountInput from "@/components/PeopleCountInput";
 import TipCalculator from "@/utils/TipCalculator";
 import { useState, useEffect } from "react";
 
@@ -67,38 +68,11 @@ export default function Home() {
             handleTipClick={handleTipClick}
             handleTipInput={handleTipInput}
           />
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="people-count"
-                className="text-md text-[hsl(186,14%,43%)]"
-              >
-                Number of People
-              </label>
-              {peopleInputError && (
-                <p className="font-bold text-red-500">Can&#39;t be zero</p>
-              )}
-            </div>
-            <div className="relative mt-2">
-              <Image
-                className="absolute left-4 top-1/2 -translate-y-1/2"
-                src={person}
-                alt="person icon"
-              />
-              <input
-                className={`w-full rounded-md border-2 bg-[hsl(189,41%,97%)] px-4 py-2 text-right text-2xl font-bold text-[hsl(183,100%,15%)] placeholder:text-[hsl(183,100%,15%)]/40 focus:outline-none ${
-                  peopleInputError
-                    ? "border-red-500 focus:ring-2 focus:ring-red-500"
-                    : "border-transparent focus:ring-2 focus:ring-[hsl(172,67%,45%)]"
-                }`}
-                type="number"
-                id="people-count"
-                placeholder="0"
-                value={peopleCount}
-                onChange={(e) => setPeopleCount(e.target.value)}
-              />
-            </div>
-          </div>
+          <PeopleCountInput
+            peopleCount={peopleCount}
+            isZeroPeopleCount={peopleInputError}
+            handlePeopleCountChange={setPeopleCount}
+          />
         </div>
 
         <div className="flex flex-col justify-between rounded-xl bg-[hsl(183,100%,15%)] p-6 pt-10 md:p-8">
