@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import logo from "../../frontend_mentor_resources/images/logo.svg";
-import person from "../../frontend_mentor_resources/images/icon-person.svg";
 import BillInput from "@/components/BillInput";
 import TipInput from "@/components/TipInput";
 import PeopleCountInput from "@/components/PeopleCountInput";
+import DisplayResult from "@/components/DisplayResults";
 import TipCalculator from "@/utils/TipCalculator";
 import { useState, useEffect } from "react";
 
@@ -76,26 +76,10 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col justify-between rounded-xl bg-[hsl(183,100%,15%)] p-6 pt-10 md:p-8">
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-white">Tip Amount</p>
-                <p className="text-sm text-[hsl(185,41%,84%)]">/ person</p>
-              </div>
-              <p className="text-3xl font-bold text-[hsl(172,67%,45%)] md:text-5xl">
-                ${tipPerPerson.toFixed(2)}
-              </p>
-            </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-white">Total</p>
-                <p className="text-sm text-[hsl(185,41%,84%)]">/ person</p>
-              </div>
-              <p className="text-3xl font-bold text-[hsl(172,67%,45%)] md:text-5xl">
-                ${totalPerPerson.toFixed(2)}
-              </p>
-            </div>
-          </div>
+          <DisplayResult
+            tipPerPerson={tipPerPerson}
+            totalPerPerson={totalPerPerson}
+          />
 
           <button
             className="mt-8 w-full rounded-md bg-[hsl(172,67%,45%)] p-3 text-xl font-bold uppercase text-[hsl(183,100%,15%)] transition-colors hover:bg-[hsl(173,61%,77%)] disabled:bg-[hsl(184,87%,21%)] disabled:text-[hsl(183,100%,15%)]/50 md:mt-0"
