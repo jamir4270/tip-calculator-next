@@ -2,15 +2,16 @@
 
 import Image from "next/image";
 import logo from "../../frontend_mentor_resources/images/logo.svg";
-import dollar from "../../frontend_mentor_resources/images/icon-dollar.svg";
 import person from "../../frontend_mentor_resources/images/icon-person.svg";
 import BillInput from "@/components/BillInput";
+import TipInput from "@/components/TipInput";
 import TipCalculator from "@/utils/TipCalculator";
 import { useState, useEffect } from "react";
 
 export default function Home() {
   const [bill, setBill] = useState("");
   const [tip, setTip] = useState("");
+  const [isOnTipButton, setIsOnTipButton] = useState(false);
   const [peopleCount, setPeopleCount] = useState("");
   const [tipPerPerson, setTipPerPerson] = useState(0);
   const [totalPerPerson, setTotalPerPerson] = useState(0);
@@ -22,13 +23,20 @@ export default function Home() {
   const peopleInputError = peopleCount === "0";
 
   function handleTipClick(value: string) {
+    setIsOnTipButton(true);
     setTip((prevTip) => (prevTip === value ? "" : value));
+  }
+
+  function handleTipInput(value: string) {
+    setIsOnTipButton(false);
+    setTip(value);
   }
 
   function resetFields() {
     setBill("");
     setTip("");
     setPeopleCount("");
+    setIsOnTipButton(false);
   }
 
   useEffect(() => {
@@ -42,8 +50,6 @@ export default function Home() {
     setTotalPerPerson(result.totalPerPerson);
   }, [bill, tip, peopleCount]);
 
-  const isPresetTip = tipButtonValues.includes(Number(tip));
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-start bg-[hsl(185,41%,84%)] px-4 pt-12 font-mono md:justify-center md:px-0 md:pt-0">
       <Image
@@ -55,36 +61,12 @@ export default function Home() {
       <div className="mt-10 grid w-full max-w-4xl grid-cols-1 gap-8 rounded-2xl bg-white p-6 shadow-lg md:mt-20 md:grid-cols-2 md:p-8">
         <div className="flex flex-col justify-between gap-8">
           <BillInput bill={bill} handleBillInput={setBill} />
-          <div>
-            <label className="text-md text-[hsl(186,14%,43%)]">
-              Select Tip %
-            </label>
-            <div className="mt-2 grid grid-cols-2 gap-4 md:grid-cols-3">
-              {tipButtonValues.map((item) => {
-                const isActive = tip === item.toString();
-                return (
-                  <button
-                    className={`rounded-md py-2 text-2xl font-bold transition-colors ${
-                      isActive
-                        ? "bg-[hsl(172,67%,45%)] text-[hsl(183,100%,15%)]"
-                        : "bg-[hsl(183,100%,15%)] text-white hover:bg-[hsl(173,61%,77%)] hover:text-[hsl(183,100%,15%)]"
-                    }`}
-                    key={item}
-                    onClick={() => handleTipClick(item.toString())}
-                  >
-                    {item}%
-                  </button>
-                );
-              })}
-              <input
-                className="w-full rounded-md border-2 border-transparent bg-[hsl(189,41%,97%)] text-center text-2xl font-bold text-[hsl(183,100%,15%)] placeholder:text-center placeholder:text-[hsl(186,14%,43%)] focus:outline-none focus:ring-2 focus:ring-[hsl(172,67%,45%)] md:text-right md:pr-4"
-                type="number"
-                placeholder="Custom"
-                value={isPresetTip ? "" : tip}
-                onChange={(e) => setTip(e.target.value)}
-              />
-            </div>
-          </div>
+          <TipInput
+            tip={tip}
+            isOnTipButton={isOnTipButton}
+            handleTipClick={handleTipClick}
+            handleTipInput={handleTipInput}
+          />
           <div>
             <div className="flex items-center justify-between">
               <label
